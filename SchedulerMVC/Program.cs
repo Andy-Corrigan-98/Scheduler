@@ -1,4 +1,15 @@
+using Lamar.Microsoft.DependencyInjection;
+using SchedulerMVC.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseLamar((ctx, reg) =>
+{
+    reg.AddDatabase();
+
+
+});
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -19,6 +30,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",
