@@ -12,13 +12,16 @@ namespace SchedulerDB.Models
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
 
-        public Meeting(string title, Person organizer, Room room, DateTime start, DateTime end)
+        public IEnumerable<Person> Attendees { get; set; }
+
+        public Meeting(string title, Person organizer, Room room, DateTime start, DateTime end, IEnumerable<Person>? attendees)
         {
             Title = title;
             Organizer = organizer;
             Room = room;
             Start = start;
             End = end;
+            Attendees = attendees ?? new List<Person>();
         }
     }
 }

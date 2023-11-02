@@ -6,6 +6,7 @@ namespace SchedulerMVC.Extensions
 {
     public static class ServiceRegistryExtensions
     {
+        // POC for if we want to use a database - but as it's an interview, I'm not going to bother wiring it up
         public static ServiceRegistry AddDatabase(this ServiceRegistry serviceRegistry)
         {
             var config = new ConfigurationBuilder()
@@ -20,6 +21,17 @@ namespace SchedulerMVC.Extensions
                     optionsBuilder.UseSqlite(config.GetConnectionString("DefaultConnection"));
                     return optionsBuilder.Options;
                 });
+
+            return serviceRegistry;
+        }
+
+        public static ServiceRegistry AddRepositories(this ServiceRegistry serviceRegistry)
+        {
+            serviceRegistry.Scan(s =>
+            {
+                s.TheCallingAssembly();
+                s.WithDefaultConventions();
+            });
 
             return serviceRegistry;
         }
